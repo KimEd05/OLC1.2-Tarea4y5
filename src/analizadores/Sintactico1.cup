@@ -1,0 +1,56 @@
+package analizadores;
+
+import java_cup.runtime.*;
+import olc1.tarea4y5.Nodo1;
+
+parser code 
+{:
+    public Nodo1 raiz;
+
+    public void syntax_error(Symbol s){ 
+        System.err.println("Error sintáctico en la Línea: " + (s.left + 1) + ", Columna: " + (s.right + 1) + ". No se esperaba este componente: " + s.value + "."); 
+    } 
+
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{ 
+        System.err.println("Error sintáctico irrecuperable en la Línea: " + (s.left + 1) + ", Columna " + (s.right + 1) + ". Componente " + s.value + " no reconocido.");
+    }
+
+:} 
+
+/* Terminales */
+terminal String coma, par, impar;
+  
+/* No terminales */
+non terminal Nodo1 INICIO, LISTA;
+
+start with INICIO; 
+
+/* Funcionalidad */
+INICIO          ::=     LISTA:list
+                        {: 
+                            raiz = list;
+                            if(raiz.getValor() % 2 == 0) {
+                                raiz.setParidad("Par");
+                            } else {
+                                raiz.setParidad("Impar");
+                            }
+                        :};
+
+LISTA           ::=     LISTA:list coma par:a
+                        {: 
+                            RESULT = list;
+                            RESULT.setValor(RESULT.getValor() + Integer.parseInt(a));
+                        :}
+                |       LISTA:list coma impar:a
+                        {: 
+                            RESULT = list;
+                            RESULT.setValor(RESULT.getValor() + Integer.parseInt(a));
+                        :}
+                |       par:a
+                        {: 
+                            RESULT = new Nodo1(Integer.parseInt(a));    
+                        :}
+                |       impar:a
+                        {: 
+                            RESULT = new Nodo1(Integer.parseInt(a));    
+                        :};

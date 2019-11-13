@@ -1,0 +1,61 @@
+package analizadores;
+
+import java_cup.runtime.*;
+import olc1.tarea4y5.Nodo2;
+
+parser code 
+{:
+    public Nodo2 raiz;
+
+    public void syntax_error(Symbol s){ 
+        System.err.println("Error sintáctico en la Línea: " + (s.left + 1) + ", Columna: " + (s.right + 1) + ". No se esperaba este componente: " + s.value + "."); 
+    } 
+
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{ 
+        System.err.println("Error sintáctico irrecuperable en la Línea: " + (s.left + 1) + ", Columna " + (s.right + 1) + ". Componente " + s.value + " no reconocido.");
+    }
+
+:} 
+
+/* Terminales */
+terminal String coma, par, impar;
+  
+/* No terminales */
+non terminal Nodo2 INICIO, LISTA;
+
+start with INICIO; 
+
+/* Funcionalidad */
+INICIO          ::=     LISTA:list
+                        {: 
+                            raiz = list;
+                        :};
+
+LISTA           ::=     LISTA:list coma par:a
+                        {: 
+                            RESULT = list;
+                            RESULT.setSuma(RESULT.getSuma() + Integer.parseInt(a));
+                            RESULT.esPar();
+                        :}
+                |       LISTA:list coma impar:a
+                        {: 
+                            RESULT = list;
+                            if(RESULT.getMultiplicacion() != 0) {
+                                RESULT.setMultiplicacion(RESULT.getMultiplicacion() * Integer.parseInt(a));
+                            } else {
+                                RESULT.setMultiplicacion(Integer.parseInt(a));
+                            }
+                            RESULT.esImpar();
+                        :}
+                |       par:a
+                        {: 
+                            RESULT = new Nodo2();
+                            RESULT.setSuma(Integer.parseInt(a));
+                            RESULT.esPar();
+                        :}
+                |       impar:a
+                        {: 
+                            RESULT = new Nodo2();
+                            RESULT.setMultiplicacion(Integer.parseInt(a));
+                            RESULT.esImpar();
+                        :};
