@@ -29,28 +29,25 @@ start with INICIO;
 INICIO          ::=     LISTA:list
                         {: 
                             raiz = list;
-                            if(raiz.getValor() % 2 == 0) {
-                                raiz.setParidad("Par");
-                            } else {
-                                raiz.setParidad("Impar");
-                            }
                         :};
 
 LISTA           ::=     LISTA:list coma par:a
                         {: 
                             RESULT = list;
                             RESULT.setValor(RESULT.getValor() + Integer.parseInt(a));
+                            RESULT.setParidad(RESULT.getParidad() * 1);
                         :}
                 |       LISTA:list coma impar:a
                         {: 
                             RESULT = list;
                             RESULT.setValor(RESULT.getValor() + Integer.parseInt(a));
+                            RESULT.setParidad(RESULT.getParidad() * -1);
                         :}
                 |       par:a
                         {: 
-                            RESULT = new Nodo1(Integer.parseInt(a));    
+                            RESULT = new Nodo1(Integer.parseInt(a), 1);    
                         :}
                 |       impar:a
                         {: 
-                            RESULT = new Nodo1(Integer.parseInt(a));    
+                            RESULT = new Nodo1(Integer.parseInt(a), -1);    
                         :};

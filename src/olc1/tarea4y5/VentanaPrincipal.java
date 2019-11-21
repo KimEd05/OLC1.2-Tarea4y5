@@ -108,7 +108,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 Parser1 parser = new Parser1(scanner);
                 parser.parse();
                 
-                jTextSalida.setText(parser.raiz.getValor() + " es " + parser.raiz.getParidad());
+                String resultado = parser.raiz.getValor() + " es ";
+                if(parser.raiz.getParidad() == 1) {
+                    resultado += "Par";
+                } else {
+                    resultado += "Impar";
+                }
+                jTextSalida.setText(resultado);
             } catch (Exception ex) {
                 Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                 System.err.println(ex);

@@ -12,10 +12,11 @@ package olc1.tarea4y5;
 public class Nodo1 {
     
     private int valor;
-    private String paridad;
+    private int paridad;
 
-    public Nodo1(int valor) {
+    public Nodo1(int valor, int paridad) {
         this.valor = valor;
+        this.paridad = paridad;
     }
 
     public int getValor() {
@@ -26,11 +27,11 @@ public class Nodo1 {
         this.valor = valor;
     }
 
-    public String getParidad() {
+    public int getParidad() {
         return paridad;
     }
 
-    public void setParidad(String paridad) {
+    public void setParidad(int paridad) {
         this.paridad = paridad;
     }
     

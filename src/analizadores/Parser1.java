@@ -156,11 +156,6 @@ class CUP$Parser1$actions {
 		Nodo1 list = (Nodo1)((java_cup.runtime.Symbol) CUP$Parser1$stack.peek()).value;
 		 
                             raiz = list;
-                            if(raiz.getValor() % 2 == 0) {
-                                raiz.setParidad("Par");
-                            } else {
-                                raiz.setParidad("Impar");
-                            }
                         
               CUP$Parser1$result = parser.getSymbolFactory().newSymbol("INICIO",0, ((java_cup.runtime.Symbol)CUP$Parser1$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser1$stack.peek()), RESULT);
             }
@@ -179,6 +174,7 @@ class CUP$Parser1$actions {
 		 
                             RESULT = list;
                             RESULT.setValor(RESULT.getValor() + Integer.parseInt(a));
+                            RESULT.setParidad(RESULT.getParidad() * 1);
                         
               CUP$Parser1$result = parser.getSymbolFactory().newSymbol("LISTA",1, ((java_cup.runtime.Symbol)CUP$Parser1$stack.elementAt(CUP$Parser1$top-2)), ((java_cup.runtime.Symbol)CUP$Parser1$stack.peek()), RESULT);
             }
@@ -197,6 +193,7 @@ class CUP$Parser1$actions {
 		 
                             RESULT = list;
                             RESULT.setValor(RESULT.getValor() + Integer.parseInt(a));
+                            RESULT.setParidad(RESULT.getParidad() * -1);
                         
               CUP$Parser1$result = parser.getSymbolFactory().newSymbol("LISTA",1, ((java_cup.runtime.Symbol)CUP$Parser1$stack.elementAt(CUP$Parser1$top-2)), ((java_cup.runtime.Symbol)CUP$Parser1$stack.peek()), RESULT);
             }
@@ -210,7 +207,7 @@ class CUP$Parser1$actions {
 		int aright = ((java_cup.runtime.Symbol)CUP$Parser1$stack.peek()).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$Parser1$stack.peek()).value;
 		 
-                            RESULT = new Nodo1(Integer.parseInt(a));    
+                            RESULT = new Nodo1(Integer.parseInt(a), 1);    
                         
               CUP$Parser1$result = parser.getSymbolFactory().newSymbol("LISTA",1, ((java_cup.runtime.Symbol)CUP$Parser1$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser1$stack.peek()), RESULT);
             }
@@ -224,7 +221,7 @@ class CUP$Parser1$actions {
 		int aright = ((java_cup.runtime.Symbol)CUP$Parser1$stack.peek()).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$Parser1$stack.peek()).value;
 		 
-                            RESULT = new Nodo1(Integer.parseInt(a));    
+                            RESULT = new Nodo1(Integer.parseInt(a), -1);    
                         
               CUP$Parser1$result = parser.getSymbolFactory().newSymbol("LISTA",1, ((java_cup.runtime.Symbol)CUP$Parser1$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser1$stack.peek()), RESULT);
             }
